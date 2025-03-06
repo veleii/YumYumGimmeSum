@@ -1,0 +1,22 @@
+@use "../Partials/Variables" as *;
+
+
+.menu_content_container {
+    width: 100%;
+    height: 100%;
+    background-color: $bg-color-secondary;
+}
+
+.main_img {
+    width:100%;
+}
+
+.Menu_Info {
+    background-color: $bg-color-primary;
+}
+
+.menu_overlay {
+    z-index: 1;
+    background-color: rgba(128, 128, 128, 0.6); /* Grå färg med transparens */
+   
+}
