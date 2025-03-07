@@ -1,0 +1,116 @@
+@use "../Partials/Variables" as *;
+
+.cart {
+    width: 100%;
+    height: 100%;
+}
+
+.cart_overlay {
+    border:solid black;
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 32rem;
+    position: absolute;
+    top: 6rem; 
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: $border-radius-primary;
+    background-color: rgb(255, 255, 255);
+
+        h1 {
+            padding:1rem;
+            color: rgb(0, 0, 0);
+            padding: 1rem;
+            font-family: $font-primary;
+            align-self: flex-start;      
+        
+        }
+
+    .fetch_city {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto auto;
+        border-top: 1px solid rgba(39, 39, 39, 0.308);
+        border-bottom: 1px solid rgba(39, 39, 2, 0.308);
+        padding: 1rem;
+
+        h2 {
+            grid-row: 1/2;
+            grid-column: 1/2;
+            font-size: $font-size-xl;
+            padding-right: 1rem;
+            color: rgb(0, 0, 0);
+            
+        }
+
+        p {
+            grid-row: 2/3;
+            grid-column: 1/4;
+            padding-top: 10px;
+            font-size: $font-size-sm;
+            color: rgb(0, 0, 0);
+        }
+
+        .menu_dotted_line {
+            grid-row: 1/2;
+            grid-column: 2/3;
+            border-bottom: dotted 1.5px rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
+        }
+        .sum {
+            grid-row: 1/2;
+            grid-column: 3/4;
+            padding-left: 1rem;
+            color: rgb(0, 0, 0);
+
+        } 
+    }
+
+}
+
+.cart_footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 10rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.button_footer {
+    width: 100%;
+    height: 100%;
+    font-family: $font-primary;
+    background-color: black;
+    border-radius: $border-radius-primary;
+    color: white;
+    font-size: $font-size-xl;
+}
+
+.total_footer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: grey;
+    border-radius: $border-radius-primary;
+    justify-content: space-between;
+
+    .sum_footer_left {
+        font-size: $font-size-xxl;
+        color: rgb(0, 0, 0);
+        align-self: center;
+        padding: 1rem;
+
+    }
+
+    .sum_footer_right {
+        font-size: $font-size-xxl;
+        align-self: center;
+        padding: 1rem;
+        color: rgb(0, 0, 0);
+    }
+}
