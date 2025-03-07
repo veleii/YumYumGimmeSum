@@ -1,0 +1,26 @@
+@use "../Partials/Variables" as *;
+
+.header_container {
+    display: flex;
+    align-self: flex-start;
+    justify-content: space-between;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    padding: 1rem;
+
+}
+.white_box {
+    display: flex;
+    background-color: white;
+    height: 3rem;
+    width: 3rem;
+}
+.cart_img_right {
+    height: 2rem;
+    width: 1.8rem;
+}
+
+.header_img_left {
+    height: 3.5rem;
+}

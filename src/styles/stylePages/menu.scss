@@ -9,13 +9,15 @@
 }
 
 .menu_content_container {
+    display: flex;
     width: 100%;
     height: 100%;
     background-color: $bg-color-secondary;
     position: relative; 
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    
 
     h1 {
         color: white;
@@ -23,6 +25,7 @@
         align-self: flex-start;
         justify-content: flex-start;
         padding: 2rem;
+       
     }
 }
 
@@ -30,20 +33,25 @@
     width:100%;
 }
 
-.Menu_Info {
-    background-color: $bg-color-primary;
-}
 
 .menu_overlay {
+    display: flex;
+    flex-direction: row;
     position: absolute;
-    top: 50%;
+    top: 6rem; /* Anpassa för att börja högre upp */
     left: 50%;
-    transform: translate(-50%, -50%); // Flyttar overlay till mitten
-    width: 80%; // Justera storleken efter behov
-    height: 70%;
+    transform: translateX(-50%);
+    width: 85%;
+    height: 32rem; /* Öka höjden för att täcka mer nederkant */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(128, 128, 128); 
-   
+    border-radius: $border-radius-primary;
+    background-color: rgb(110, 106, 106);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.527);
+}
+
+.menu_dotted_line {
+    
+    border-bottom: dotted 1.5px rgb(255, 255, 255);
 }
