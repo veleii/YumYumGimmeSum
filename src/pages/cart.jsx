@@ -9,7 +9,6 @@ export default function Cart() {
         <div className="cart">
             <Header />
 
-            
             {cartContent()}  
         </div>
     );
