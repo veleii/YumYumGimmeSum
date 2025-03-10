@@ -1,6 +1,6 @@
 import "../styles/stylesComponent/DipContent.scss";
 
-export default function dip() {
+export default function DipContent({ dips }) {
   return (
     <section className="dip_container">
       <section className="fetch_city">
@@ -8,14 +8,18 @@ export default function dip() {
         <p></p>
         <div className="menu_dotted_line"></div>
 
-        <section className="sum">
-          <h4>19kr</h4>
-        </section>
+        {dips.map((dip) => (
+          <section key={dip.id} className="sum">
+            <h4>{dip.price}kr</h4> {/* Visa priset här */}
+          </section>
+        ))}
       </section>
       <section className="dip_items">
-        <div className="dip_select">
-          <p className="p_dip">sweet chilli</p>
-        </div>
+        {dips.map((dip) => (
+          <div key={dip.id} className="dip_select">
+            <p className="p_dip">{dip.name}</p> {/* Visa endast dipnamn här */}
+          </div>
+        ))}
       </section>
     </section>
   );

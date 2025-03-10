@@ -4,6 +4,7 @@ import DipContent from "../components/DipContent";
 
 export default function MenuContent() {
   const [menuItems, setMenuItems] = useState([]);
+  const [dips, setDips] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,11 +17,13 @@ export default function MenuContent() {
         console.log("API Response:", menuData); // Logga hela API-svaret
 
         if (menuData && Array.isArray(menuData.items)) {
-          // Filtrera bort drycker
-          const filteredItems = menuData.items.filter(
-            (item) => item.type !== "drink"
-          );
-          setMenuItems(filteredItems); // Spara endast de filtrerade objekten
+          // Dela upp menyn i dippar och övriga alternativ (och filtrera bort drinkar)
+          const dips = menuData.items.filter((item) => item.type === "dip");
+          const otherItems = menuData.items.filter(
+            (item) => item.type !== "dip" && item.type !== "drink"
+          ); // Exkludera drickor
+          setMenuItems(otherItems); // Spara övriga menyobjekt (t.ex. wonton)
+          setDips(dips); // Spara dippar
         } else {
           throw new Error("Felaktigt format på API-svar");
         }
@@ -39,6 +42,8 @@ export default function MenuContent() {
   return (
     <div className="menu_overlay">
       <h1>MENY</h1>
+
+      {/* Visa de andra menyobjekten */}
       {menuItems.length > 0 ? (
         menuItems.map((item) => (
           <section key={item.id} className="fetch_city">
@@ -51,9 +56,11 @@ export default function MenuContent() {
           </section>
         ))
       ) : (
-        <p>Inga menyalternativ hittades.</p>
+        <p>Inga andra menyalternativ hittades.</p>
       )}
-      {DipContent()} {/* Renderar DipContent komponenten */}
+
+      {/* Visa dippar */}
+      {dips.length > 0 && <DipContent dips={dips} />}
     </div>
   );
 }
