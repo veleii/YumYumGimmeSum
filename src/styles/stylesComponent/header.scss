@@ -4,9 +4,6 @@
     display: flex;
     align-self: flex-start;
     justify-content: space-between;
-    position: absolute;
-   
-   
     z-index: 1;
     width: 100%;
     padding: 1rem;
@@ -17,8 +14,9 @@
     justify-content: center;
     align-items: center;
     background-color: white;
-    height: 3rem;
-    width: 3rem;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 10%;
 }
 .cart_img_right {
     height: 2rem;
