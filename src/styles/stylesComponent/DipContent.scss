@@ -1,0 +1,30 @@
+@use "../Partials/Variables" as *;
+
+.menu_dotted_line {
+    border-bottom: dotted 1.5px rgb(255, 255, 255);
+}
+
+.dip_container {
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+
+}
+
+.dip_select {
+    background-color: $bg-color-light-grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $border-radius-primary;
+    font-size: $font-size-sm;
+    padding: 0.5rem;
+}
+/* 
+.p_dip {
+
+} */
+
