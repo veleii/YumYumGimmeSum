@@ -8,8 +8,11 @@ import "../styles/stylesComponent/header.scss";
 const Header = () => {
   const navigate = useNavigate();
 
-  // Hämta totalItems från Redux
-  const { totalItems } = useSelector((state) => state.cart);
+  // Hämta alla artiklar från Redux
+  const { items } = useSelector((state) => state.cart);
+
+  // Beräkna den totala mängden artiklar
+  const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
   const goToHome = () => {
     navigate("/");
@@ -34,9 +37,7 @@ const Header = () => {
           className="cart_img_right"
           onClick={goToCart}
         />
-        {totalItems > 0 && (
-          <span className="cart_count">{totalItems}</span> // Visa cart count om det finns artiklar
-        )}
+        {totalItems > 0 && <span className="cart_count">{totalItems}</span>}
       </div>
     </header>
   );

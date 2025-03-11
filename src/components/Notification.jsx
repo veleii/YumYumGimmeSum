@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-// Om du inte har en separat CSS-fil för notifikationer, ta bort denna import:
-// import '../styles/stylesComponent/Notification.scss';
 
 export default function Notification({ message, duration = 2000 }) {
   const [visible, setVisible] = useState(true);
