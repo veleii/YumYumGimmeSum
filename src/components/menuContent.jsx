@@ -1,16 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMenu } from "../redux/menuSlice";
+import { addToCart } from "../redux/cartSlice";
 import DipContent from "./DipContent";
+import Notification from "../components/Notification";
 import "../styles/stylePages/menu.scss";
 
 export default function MenuContent() {
   const dispatch = useDispatch();
   const { items, dips, loading, error } = useSelector((state) => state.menu);
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     dispatch(fetchMenu());
   }, [dispatch]);
+
+  const handleAddToCart = (item, event) => {
+    const element = event.currentTarget;
+
+    // Visuell feedback
+    element.classList.add("added-to-cart");
+    setTimeout(() => {
+      element.classList.remove("added-to-cart");
+    }, 800);
+
+    dispatch(addToCart(item));
+
+    // Visa notifikation
+    setNotification(`${item.name} har lagts till i kundvagnen`);
+
+    // Ta bort notifikationen efter visning
+    setTimeout(() => {
+      setNotification(null);
+    }, 2000);
+  };
 
   if (loading) return <div>Laddar...</div>;
   if (error) return <div>Fel vid hämtning: {error}</div>;
@@ -22,7 +45,11 @@ export default function MenuContent() {
       {/* Visa de andra menyobjekten */}
       {items.length > 0 ? (
         items.map((item) => (
-          <section key={item.id} className="fetch_city">
+          <section
+            key={item.id}
+            className="fetch_city clickable"
+            onClick={(event) => handleAddToCart(item, event)}
+          >
             <h2>{item.name}</h2>
             <p className="p_menu">{item.description}</p>
             <div className="menu_dotted_line"></div>
@@ -36,7 +63,10 @@ export default function MenuContent() {
       )}
 
       {/* Visa dippar */}
-      <DipContent dips={dips} />
+      <DipContent dips={dips} setNotification={setNotification} />
+
+      {/* Visa notifikation */}
+      {notification && <Notification message={notification} />}
     </div>
   );
 }

@@ -1,15 +1,17 @@
-import Header from "../components/header";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "../redux/store";
+import Header from "../components/header";
+import CartContent from "../components/cartContent";
 import "../styles/stylePages/cart.scss";
-import cartContent from "../components/cartContent";
 
 export default function Cart() {
   return (
-    <div className="cart">
-      <Header />
-
-      {cartContent()}
-    </div>
+    <Provider store={store}>
+      <div className="cart">
+        <Header />
+        <CartContent />
+      </div>
+    </Provider>
   );
 }
