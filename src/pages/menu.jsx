@@ -1,33 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import Header from "../components/header";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 import MenuContent from "../components/menuContent";
+import Header from "../components/header";
 import "../styles/stylePages/menu.scss";
 
 export default function Menu() {
   return (
-    <div className="menu">
-      <Header />
-
-      <MenuContent />
-    </div>
+    <Provider store={store}>
+      <div className="menu">
+        <Header />
+        <MenuContent />
+      </div>
+    </Provider>
   );
 }
-
-/* import React, { useEffect } from "react";
-import { getApiKey, getMenu } from "../services/api";
-
-export default function Menu() {
-  useEffect(() => {
-    const fetchData = async () => {
-      const apiKey = await getApiKey();
-      if (apiKey) {
-        await getMenu(apiKey);
-      }
-    };
-    fetchData();
-  }, []);
-
-  return <div>Se konsolen för API-data!</div>;
-}
- */

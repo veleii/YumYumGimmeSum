@@ -1,51 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { getApiKey, getMenu } from "../services/api";
-import DipContent from "../components/DipContent";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMenu } from "../redux/menuSlice";
+import DipContent from "./DipContent";
+import "../styles/stylePages/menu.scss";
 
 export default function MenuContent() {
-  const [menuItems, setMenuItems] = useState([]);
-  const [dips, setDips] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { items, dips, loading, error } = useSelector((state) => state.menu);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiKey = await getApiKey();
-        if (!apiKey) throw new Error("Ingen API-nyckel hämtades");
-
-        const menuData = await getMenu(apiKey);
-        console.log("API Response:", menuData); // Logga hela API-svaret
-
-        if (menuData && Array.isArray(menuData.items)) {
-          // Dela upp menyn i dippar och övriga alternativ (och filtrera bort drinkar)
-          const dips = menuData.items.filter((item) => item.type === "dip");
-          const otherItems = menuData.items.filter(
-            (item) => item.type !== "dip" && item.type !== "drink"
-          ); // Exkludera drickor
-          setMenuItems(otherItems); // Spara övriga menyobjekt (t.ex. wonton)
-          setDips(dips); // Spara dippar
-        } else {
-          throw new Error("Felaktigt format på API-svar");
-        }
-      } catch (error) {
-        console.error("Fel vid API-anrop:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+    dispatch(fetchMenu());
+  }, [dispatch]);
 
   if (loading) return <div>Laddar...</div>;
+  if (error) return <div>Fel vid hämtning: {error}</div>;
 
   return (
     <div className="menu_overlay">
       <h1>MENY</h1>
 
       {/* Visa de andra menyobjekten */}
-      {menuItems.length > 0 ? (
-        menuItems.map((item) => (
+      {items.length > 0 ? (
+        items.map((item) => (
           <section key={item.id} className="fetch_city">
             <h2>{item.name}</h2>
             <p className="p_menu">{item.description}</p>
@@ -60,7 +36,7 @@ export default function MenuContent() {
       )}
 
       {/* Visa dippar */}
-      {dips.length > 0 && <DipContent dips={dips} />}
+      <DipContent dips={dips} />
     </div>
   );
 }

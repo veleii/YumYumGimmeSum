@@ -5,19 +5,16 @@ export default function DipContent({ dips }) {
     <section className="dip_container">
       <section className="fetch_city">
         <h2>DIPSÅS</h2>
-        <p></p>
         <div className="menu_dotted_line"></div>
-
-        {dips.map((dip) => (
-          <section key={dip.id} className="sum">
-            <h4>{dip.price}kr</h4> {/* Visa priset här */}
-          </section>
-        ))}
+        <section className="sum">
+          <h4>{dips.length > 0 ? dips[0].price + "kr" : ""}</h4>
+        </section>
       </section>
+
       <section className="dip_items">
         {dips.map((dip) => (
           <div key={dip.id} className="dip_select">
-            <p className="p_dip">{dip.name}</p> {/* Visa endast dipnamn här */}
+            <p className="p_dip">{dip.name}</p>
           </div>
         ))}
       </section>
