@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../redux/cartSlice";
+import { removeFromCart, addToCart } from "../redux/cartSlice";
+import "../styles/stylePages/cart.scss";
 
 export default function CartContent() {
   const { items, totalAmount } = useSelector((state) => state.cart);
@@ -8,6 +9,10 @@ export default function CartContent() {
 
   const handleRemoveFromCart = (id) => {
     dispatch(removeFromCart(id));
+  };
+
+  const handleAddToCart = (id, name, description, price) => {
+    dispatch(addToCart({ id, name, description, price }));
   };
 
   return (
@@ -19,13 +24,26 @@ export default function CartContent() {
               <h2>{item.name}</h2>
               <p>{item.description}</p>
               <div className="quantity">
-                <span>Antal: {item.quantity}</span>
+                <button
+                  className="add_btn"
+                  onClick={() =>
+                    handleAddToCart(
+                      item.id,
+                      item.name,
+                      item.description,
+                      item.price
+                    )
+                  }
+                >
+                  +
+                </button>
                 <button
                   className="remove_btn"
                   onClick={() => handleRemoveFromCart(item.id)}
                 >
                   -
                 </button>
+                <span>Antal: {item.quantity}</span>
               </div>
               <div className="menu_dotted_line"></div>
               <section className="sum">

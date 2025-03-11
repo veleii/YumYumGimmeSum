@@ -1,28 +1,47 @@
 @use "../Partials/Variables" as *;
 
 .header_container {
-    display: flex;
-    align-self: flex-start;
-    justify-content: space-between;
-    z-index: 1;
-    width: 100%;
-    padding: 1rem;
+  display: flex;
+  align-self: flex-start;
+  justify-content: space-between;
+  z-index: 1;
+  width: 100%;
+  padding: 1rem;
+}
 
-}
 .white_box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    height: 3.5rem;
-    width: 3.5rem;
-    border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 10%;
+  position: relative; /* För att placera den röda cirkeln över */
 }
+
 .cart_img_right {
-    height: 2rem;
-    width: 1.8rem;
+  height: 2rem;
+  width: 1.8rem;
 }
 
 .header_img_left {
-    height: 3.5rem;
+  height: 3.5rem;
+}
+
+.cart_count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
