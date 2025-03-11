@@ -52,7 +52,7 @@ export default function CartContent() {
             </section>
           ))
         ) : (
-          <p>Din kundvagn är tom</p>
+          <p className="empty-cart-message">Din kundvagn är tom</p>
         )}
       </div>
 

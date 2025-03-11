@@ -166,3 +166,26 @@
 .remove_btn:hover {
   background-color: rgb(201, 171, 144);
 }
+
+.cart_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+.cart_overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+  text-align: left;
+}
+
+.empty-cart-message {
+  font-size: 1.5rem;
+  color: #8dd6be;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
