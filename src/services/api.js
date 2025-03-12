@@ -4,12 +4,12 @@ const API_URL = "https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com";
 export const getApiKey = async () => {
   try {
     const response = await fetch(`${API_URL}/keys`, { method: "POST" });
-    console.log("Response status:", response.status); // Logga status
+
 
     if (!response.ok) throw new Error("Failed to fetch API key");
 
     const data = await response.json();
-    console.log("API Key:", data.key);
+   
     return data.key;
   } catch (error) {
     console.error("Error fetching API key:", error);
@@ -30,12 +30,11 @@ export const getMenu = async (apiKey) => {
       headers: { "x-zocom": apiKey },
     });
 
-    console.log("Response status:", response.status); // Logga status
 
     if (!response.ok) throw new Error("Failed to fetch menu");
 
     const data = await response.json();
-    console.log("Menu:", data); // Logga menydata
+ 
     return data;
   } catch (error) {
     console.error("Error fetching menu:", error);
@@ -94,22 +93,26 @@ export const createTenant = async (tenantName) => {
 
 // Skicka order
 export const sendOrder = async (tenantId, items) => {
+
+
   try {
     const apiKey = await getApiKey();
 
     if (!apiKey) {
       throw new Error("Kunde inte hämta API-nyckel");
     }
-
-    const response = await fetch(`${API_URL}/tenants/${tenantId}/orders`, {
+    console.log(items);
+    
+    const response = await fetch(`${API_URL}/${tenantId}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "x-zocom": apiKey,
       },
-      body: JSON.stringify({ items }),
+      body: JSON.stringify({ "items": items }),
     });
-
+    console.log("bafortsätterrrr");
+    
     if (!response.ok) {
       throw new Error("Kunde inte skicka ordern");
     }

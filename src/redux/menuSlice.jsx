@@ -9,8 +9,8 @@ export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
 
     // Check for existing tenantId
     let tenantId = localStorage.getItem("tenantId");
-    console.log("Retrieved from localStorage:", tenantId);
-    console.log("Type of tenantId:", typeof tenantId);
+    
+   
 
     // More comprehensive check for invalid tenantId values
     if (
@@ -26,18 +26,18 @@ export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
 
       // Create a new tenant
       try {
-        tenantId = await createTenant("bajs");
+        tenantId = await createTenant("velei");
         console.log("New tenant created:", tenantId);
 
         // Save the tenant ID to localStorage
         localStorage.setItem("tenantId", tenantId);
-        console.log("Stored new tenantId in localStorage:", tenantId);
+        
       } catch (error) {
         console.error("Failed to create tenant:", error);
         throw new Error("Could not create tenant: " + error.message);
       }
     } else {
-      console.log("Using existing tenantId:", tenantId);
+    
     }
 
     // Now get the menu with our API key

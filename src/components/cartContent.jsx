@@ -1,13 +1,18 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, addToCart } from "../redux/cartSlice";
-import { sendOrder } from "../services/api"; // Se till att detta är rätt path till API-anropet
+import { useNavigate } from "react-router-dom"; // Importera useNavigate för att navigera
 import "../styles/stylePages/cart.scss";
+import { placeOrder } from "../redux/orderSlice";
 
 export default function CartContent() {
-  const { items, totalAmount } = useSelector((state) => state.cart);
+  const { totalAmount } = useSelector((state) => state.cart);
   const tenantId = useSelector((state) => state.tenant.tenantId); // Hämta tenantId från Redux
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const items = useSelector((state) => state.cart.items);
+
 
   const handleRemoveFromCart = (id) => {
     dispatch(removeFromCart(id));
@@ -17,29 +22,19 @@ export default function CartContent() {
     dispatch(addToCart({ id, name, description, price }));
   };
 
+
+  const itemsIdArray = items.reduce((acc, item) => {
+    for (let i = 0; i < item.quantity; i++) {
+      acc.push(item.id);
+    }
+    return acc;
+  }, []);
+
   const handleOrder = async () => {
-    if (!tenantId) {
-      alert("Du måste skapa en tenant innan du kan beställa!");
-      return;
-    }
-
-    if (items.length === 0) {
-      alert("Din kundvagn är tom!");
-      return;
-    }
-
-    try {
-      const orderItems = items.map((item) => ({
-        id: item.id,
-        quantity: item.quantity,
-      })); // Inkluderar antal
-      const response = await sendOrder(tenantId, orderItems);
-      console.log("Order skickad:", response);
-      alert("Din order är bekräftad!");
-    } catch (error) {
-      console.error("Ordermisslyckande:", error);
-      alert("Kunde inte skicka ordern.");
-    }
+    
+    dispatch(placeOrder(itemsIdArray));
+    navigate("/orderConfirm");
+  
   };
 
   return (
