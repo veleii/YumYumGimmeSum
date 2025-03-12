@@ -1,12 +1,56 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getApiKey, getMenu } from "../services/api";
+import { getApiKey, getMenu, createTenant } from "../services/api";
 
-// Async thunk för att hämta menyn
 export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
-  const apiKey = await getApiKey();
-  if (!apiKey) throw new Error("Ingen API-nyckel hämtades");
-  const menuData = await getMenu(apiKey);
-  return menuData.items;
+  try {
+    // Get API key
+    const apiKey = await getApiKey();
+    if (!apiKey) throw new Error("Ingen API-nyckel hämtades");
+
+    // Check for existing tenantId
+    let tenantId = localStorage.getItem("tenantId");
+    console.log("Retrieved from localStorage:", tenantId);
+    console.log("Type of tenantId:", typeof tenantId);
+
+    // More comprehensive check for invalid tenantId values
+    if (
+      tenantId === null ||
+      tenantId === "undefined" ||
+      tenantId === "null" ||
+      tenantId === ""
+    ) {
+      console.log("No valid tenantId found, creating new tenant");
+
+      // First, clear any bad values
+      localStorage.removeItem("tenantId");
+
+      // Create a new tenant
+      try {
+        tenantId = await createTenant("bajs");
+        console.log("New tenant created:", tenantId);
+
+        // Save the tenant ID to localStorage
+        localStorage.setItem("tenantId", tenantId);
+        console.log("Stored new tenantId in localStorage:", tenantId);
+      } catch (error) {
+        console.error("Failed to create tenant:", error);
+        throw new Error("Could not create tenant: " + error.message);
+      }
+    } else {
+      console.log("Using existing tenantId:", tenantId);
+    }
+
+    // Now get the menu with our API key
+    const menuData = await getMenu(apiKey);
+    if (!menuData || !menuData.items) {
+      throw new Error("Invalid menu data received");
+    }
+
+    return menuData.items;
+  } catch (error) {
+    console.error("Error in fetchMenu:", error);
+    throw error;
+  }
 });
 
 const menuSlice = createSlice({
@@ -17,6 +61,7 @@ const menuSlice = createSlice({
     builder
       .addCase(fetchMenu.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(fetchMenu.fulfilled, (state, action) => {
         state.loading = false;

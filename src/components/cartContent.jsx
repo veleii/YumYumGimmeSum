@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, addToCart } from "../redux/cartSlice";
+import { sendOrder } from "../services/api"; // Se till att detta är rätt path till API-anropet
 import "../styles/stylePages/cart.scss";
 
 export default function CartContent() {
   const { items, totalAmount } = useSelector((state) => state.cart);
+  const tenantId = useSelector((state) => state.tenant.tenantId); // Hämta tenantId från Redux
   const dispatch = useDispatch();
 
   const handleRemoveFromCart = (id) => {
@@ -13,6 +15,31 @@ export default function CartContent() {
 
   const handleAddToCart = (id, name, description, price) => {
     dispatch(addToCart({ id, name, description, price }));
+  };
+
+  const handleOrder = async () => {
+    if (!tenantId) {
+      alert("Du måste skapa en tenant innan du kan beställa!");
+      return;
+    }
+
+    if (items.length === 0) {
+      alert("Din kundvagn är tom!");
+      return;
+    }
+
+    try {
+      const orderItems = items.map((item) => ({
+        id: item.id,
+        quantity: item.quantity,
+      })); // Inkluderar antal
+      const response = await sendOrder(tenantId, orderItems);
+      console.log("Order skickad:", response);
+      alert("Din order är bekräftad!");
+    } catch (error) {
+      console.error("Ordermisslyckande:", error);
+      alert("Kunde inte skicka ordern.");
+    }
   };
 
   return (
@@ -61,7 +88,9 @@ export default function CartContent() {
           <p className="sum_footer_left">TOTALT</p>
           <p className="sum_footer_right">{totalAmount} SEK</p>
         </section>
-        <button className="button_footer">TAKE MY MONEY!</button>
+        <button className="button_footer" onClick={handleOrder}>
+          TAKE MY MONEY!
+        </button>
       </section>
     </div>
   );
