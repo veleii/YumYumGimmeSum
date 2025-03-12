@@ -3,9 +3,9 @@ import { sendOrder } from "../services/api";
 
 export const placeOrder = createAsyncThunk(
   "order/placeOrder",
-  async ( items , { rejectWithValue }) => {
+  async (items, { rejectWithValue }) => {
     let tenantId = localStorage.getItem("tenantId");
-    console.log(items)
+
     try {
       const response = await sendOrder(tenantId, items);
       console.log(response);

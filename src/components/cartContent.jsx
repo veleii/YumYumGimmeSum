@@ -13,7 +13,6 @@ export default function CartContent() {
 
   const items = useSelector((state) => state.cart.items);
 
-
   const handleRemoveFromCart = (id) => {
     dispatch(removeFromCart(id));
   };
@@ -21,7 +20,6 @@ export default function CartContent() {
   const handleAddToCart = (id, name, description, price) => {
     dispatch(addToCart({ id, name, description, price }));
   };
-
 
   const itemsIdArray = items.reduce((acc, item) => {
     for (let i = 0; i < item.quantity; i++) {
@@ -31,10 +29,8 @@ export default function CartContent() {
   }, []);
 
   const handleOrder = async () => {
-    
     dispatch(placeOrder(itemsIdArray));
     navigate("/orderConfirm");
-  
   };
 
   return (
