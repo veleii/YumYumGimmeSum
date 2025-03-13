@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMenu } from "../redux/menuSlice";
 import { addToCart } from "../redux/cartSlice";
-import DipContent from "./DipContent";
+import DipAndDrinksContent from "./DipAndDrinksContent";
 import Notification from "../components/Notification";
 import "../styles/stylePages/menu.scss";
 
 export default function MenuContent() {
   const dispatch = useDispatch();
-  const { items, dips, loading, error } = useSelector((state) => state.menu);
+  const { items, dips, drinks, loading, error } = useSelector(
+    (state) => state.menu
+  );
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {
@@ -58,7 +60,16 @@ export default function MenuContent() {
         <p>Inga andra menyalternativ hittades.</p>
       )}
 
-      <DipContent dips={dips} setNotification={setNotification} />
+      <DipAndDrinksContent
+        dips={dips}
+        title="DIPSÅS"
+        setNotification={setNotification}
+      />
+      <DipAndDrinksContent
+        dips={drinks}
+        title="DRYCK"
+        setNotification={setNotification}
+      />
 
       {notification && <Notification message={notification} />}
     </div>

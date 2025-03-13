@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import "../styles/stylesComponent/DipContent.scss";
 
-export default function DipContent({ dips, setNotification }) {
+export default function DipAndDrinksContent({ dips, title, setNotification }) {
   const dispatch = useDispatch();
 
   const handleAddToCart = (dip, event) => {
@@ -24,7 +24,7 @@ export default function DipContent({ dips, setNotification }) {
   return (
     <section className="dip_container">
       <section className="fetch_city">
-        <h2>DIPSÅS</h2>
+        <h2>{title}</h2>
         <div className="menu_dotted_line"></div>
         <section className="sum">
           <h4>{dips.length > 0 ? dips[0].price + "kr" : ""}</h4>

@@ -47,7 +47,13 @@ export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
 
 const menuSlice = createSlice({
   name: "menu",
-  initialState: { items: [], dips: [], loading: false, error: null },
+  initialState: {
+    items: [],
+    dips: [],
+    drinks: [],
+    loading: false,
+    error: null,
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -61,6 +67,7 @@ const menuSlice = createSlice({
           (item) => item.type !== "drink" && item.type !== "dip"
         );
         state.dips = action.payload.filter((item) => item.type === "dip");
+        state.drinks = action.payload.filter((item) => item.type === "drink");
       })
       .addCase(fetchMenu.rejected, (state, action) => {
         state.loading = false;
