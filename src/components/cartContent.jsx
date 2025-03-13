@@ -1,13 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart, addToCart } from "../redux/cartSlice";
-import { useNavigate } from "react-router-dom"; // Importera useNavigate för att navigera
+import { useNavigate } from "react-router-dom";
 import "../styles/stylePages/cart.scss";
 import { placeOrder } from "../redux/orderSlice";
 
 export default function CartContent() {
   const { totalAmount } = useSelector((state) => state.cart);
-  const tenantId = useSelector((state) => state.tenant.tenantId); // Hämta tenantId från Redux
+  const tenantId = useSelector((state) => state.tenant.tenantId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

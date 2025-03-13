@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; // För navigering
+import { useNavigate } from "react-router-dom";
 import { clearCart } from "../redux/cartSlice";
 
 export default function OrderContent() {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Skapa en navigate funktion
+  const navigate = useNavigate();
   const orders = useSelector((state) => state.order.orders);
 
   const [isCartVisible, setIsCartVisible] = useState(true); // State för att dölja varukorgen
@@ -18,14 +18,13 @@ export default function OrderContent() {
 
     if (orders && orders.length > 0) {
       const latestOrder = orders[orders.length - 1].order;
-      const eta = new Date(latestOrder.eta); // Hämta ETA från senaste ordern
-      const now = new Date(); // Hämta nuvarande tid
+      const eta = new Date(latestOrder.eta);
+      const now = new Date();
 
-      // Räkna ut skillnaden i millisekunder
       const diffInMs = eta - now;
-      const diffInMinutes = Math.floor(diffInMs / (1000 * 60)); // Konvertera till minuter
+      const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
 
-      setEtaMinutes(diffInMinutes); // Sätt ETA i minuter
+      setEtaMinutes(diffInMinutes);
     }
   }, [dispatch, orders]);
 
@@ -36,14 +35,14 @@ export default function OrderContent() {
   const latestOrder = orders[orders.length - 1].order;
 
   const handleNewOrder = () => {
-    navigate("/"); // Navigera tillbaka till menyn (eller hemsidan)
+    navigate("/");
   };
 
   return (
     <div className="order_content_container">
       <div className="confirm_container">
         <h1>
-          DINA WONTONS <span class="last-word">TILLAGAS!</span>
+          DINA WONTONS <span className="last-word">TILLAGAS!</span>
         </h1>
         {etaMinutes !== null ? (
           <h2>ETA {etaMinutes} MIN</h2>

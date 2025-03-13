@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getApiKey } from "../services/api"; // Importera getApiKey
+import { getApiKey } from "../services/api";
 
 // Async thunk för att skapa en ny tenant
 export const createTenant = createAsyncThunk(
@@ -51,7 +51,7 @@ const tenantSlice = createSlice({
       })
       .addCase(createTenant.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.tenantId = action.payload.id; // Spara endast id
+        state.tenantId = action.payload.id;
       })
       .addCase(createTenant.rejected, (state, action) => {
         state.status = "failed";

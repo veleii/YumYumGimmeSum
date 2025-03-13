@@ -62,18 +62,15 @@ export const createTenant = async (tenantName) => {
 
     console.log("Tenant creation response status:", response.status);
 
-    // Parse the JSON response
     const data = await response.json();
     console.log("Tenant creation response data:", data);
 
-    // Check if the response was successful after parsing
     if (!response.ok) {
       throw new Error(
         `Could not create tenant: ${data.error || response.statusText}`
       );
     }
 
-    // Check if we got an ID back
     if (!data.id) {
       console.error(
         "API returned success but no tenant ID was provided:",
@@ -82,7 +79,7 @@ export const createTenant = async (tenantName) => {
       throw new Error("No tenant ID was returned from the API");
     }
 
-    return data.id; // Return just the ID
+    return data.id;
   } catch (error) {
     console.error("Error creating tenant:", error);
     throw error;

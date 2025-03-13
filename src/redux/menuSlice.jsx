@@ -19,15 +19,12 @@ export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
     ) {
       console.log("No valid tenantId found, creating new tenant");
 
-      // First, clear any bad values
       localStorage.removeItem("tenantId");
 
-      // Create a new tenant
       try {
-        tenantId = await createTenant("veleii");
+        tenantId = await createTenant("velei1");
         console.log("New tenant created:", tenantId);
 
-        // Save the tenant ID to localStorage
         localStorage.setItem("tenantId", tenantId);
       } catch (error) {
         console.error("Failed to create tenant:", error);
@@ -36,7 +33,6 @@ export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
     } else {
     }
 
-    // Now get the menu with our API key
     const menuData = await getMenu(apiKey);
     if (!menuData || !menuData.items) {
       throw new Error("Invalid menu data received");

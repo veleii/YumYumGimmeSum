@@ -18,7 +18,6 @@ export default function MenuContent() {
   const handleAddToCart = (item, event) => {
     const element = event.currentTarget;
 
-    // Visuell feedback
     element.classList.add("added-to-cart");
     setTimeout(() => {
       element.classList.remove("added-to-cart");
@@ -26,10 +25,8 @@ export default function MenuContent() {
 
     dispatch(addToCart(item));
 
-    // Visa notifikation
     setNotification(`${item.name} har lagts till i kundvagnen`);
 
-    // Ta bort notifikationen efter visning
     setTimeout(() => {
       setNotification(null);
     }, 2000);
@@ -42,7 +39,6 @@ export default function MenuContent() {
     <div className="menu_overlay">
       <h1>MENY</h1>
 
-      {/* Visa de andra menyobjekten */}
       {items.length > 0 ? (
         items.map((item) => (
           <section
@@ -62,10 +58,8 @@ export default function MenuContent() {
         <p>Inga andra menyalternativ hittades.</p>
       )}
 
-      {/* Visa dippar */}
       <DipContent dips={dips} setNotification={setNotification} />
 
-      {/* Visa notifikation */}
       {notification && <Notification message={notification} />}
     </div>
   );

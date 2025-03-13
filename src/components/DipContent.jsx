@@ -9,7 +9,6 @@ export default function DipContent({ dips, setNotification }) {
   const handleAddToCart = (dip, event) => {
     const element = event.currentTarget;
 
-    // Visuell feedback
     element.classList.add("added-to-cart");
     setTimeout(() => {
       element.classList.remove("added-to-cart");
@@ -17,7 +16,6 @@ export default function DipContent({ dips, setNotification }) {
 
     dispatch(addToCart(dip));
 
-    // Visa notifikation om setNotification finns
     if (setNotification) {
       setNotification(`${dip.name} har lagts till i kundvagnen`);
     }

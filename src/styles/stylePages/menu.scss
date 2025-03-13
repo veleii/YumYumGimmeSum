@@ -88,17 +88,6 @@
   }
 }
 
-//* Ersätt detta: */
-.clickable:active {
-  transform: scale(0.98);
-}
-
-/* Med detta istället (mildare effekt): */
 .clickable:active {
   transform: scale(0.995);
-}
-
-/* Eller ta bort transform helt om du inte vill ha någon skalningseffekt: */
-.clickable:active {
-  background-color: rgba(0, 0, 0, 0.1);
 }
