@@ -24,7 +24,7 @@ export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
 
       // Create a new tenant
       try {
-        tenantId = await createTenant("velei");
+        tenantId = await createTenant("veleii");
         console.log("New tenant created:", tenantId);
 
         // Save the tenant ID to localStorage

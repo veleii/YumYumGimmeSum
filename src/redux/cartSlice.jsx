@@ -14,32 +14,34 @@ const cartSlice = createSlice({
       );
 
       if (existingItem) {
-        existingItem.quantity += 1; // Om varan redan finns i varukorgen, öka mängden
+        existingItem.quantity += 1;
       } else {
-        state.items.push({ ...item, quantity: 1 }); // Lägg till varan om den inte finns
+        state.items.push({ ...item, quantity: 1 });
       }
 
-      state.totalAmount += item.price; // Lägg till priset för den nya varan
+      state.totalAmount += item.price;
     },
     removeFromCart: (state, action) => {
       const itemId = action.payload;
       const item = state.items.find((item) => item.id === itemId);
 
       if (item) {
-        // Om mängden är större än 1, minska mängden
         if (item.quantity > 1) {
           item.quantity -= 1;
-          state.totalAmount -= item.price; // Minska totalbeloppet
+          state.totalAmount -= item.price;
         } else {
-          // Om mängden är 1, ta bort objektet från listan
           state.totalAmount -= item.price;
           state.items = state.items.filter((item) => item.id !== itemId);
         }
       }
     },
+    clearCart: (state) => {
+      state.items = [];
+      state.totalAmount = 0;
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

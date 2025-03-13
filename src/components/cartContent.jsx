@@ -42,6 +42,13 @@ export default function CartContent() {
               <h2>{item.name}</h2>
               <p>{item.description}</p>
               <div className="quantity">
+                <span>Antal: {item.quantity}</span>
+                <button
+                  className="remove_btn"
+                  onClick={() => handleRemoveFromCart(item.id)}
+                >
+                  -
+                </button>
                 <button
                   className="add_btn"
                   onClick={() =>
@@ -55,13 +62,6 @@ export default function CartContent() {
                 >
                   +
                 </button>
-                <button
-                  className="remove_btn"
-                  onClick={() => handleRemoveFromCart(item.id)}
-                >
-                  -
-                </button>
-                <span>Antal: {item.quantity}</span>
               </div>
               <div className="menu_dotted_line"></div>
               <section className="sum">
