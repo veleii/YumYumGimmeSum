@@ -1,3 +1,7 @@
+Här är min youtube video också. När jag frågade mina klasskompisar hade dom pratat mer ingående om koden men jag höll det kort du får säga till om du vill att jag gör en ny med mer förklaring hur jag tänk med koden. 
+https://www.youtube.com/watch?v=mBet6tyZSxQ
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
