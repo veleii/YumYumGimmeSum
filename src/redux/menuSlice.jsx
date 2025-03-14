@@ -22,7 +22,7 @@ export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
       localStorage.removeItem("tenantId");
 
       try {
-        tenantId = await createTenant("velei1");
+        tenantId = await createTenant("velei55");
         console.log("New tenant created:", tenantId);
 
         localStorage.setItem("tenantId", tenantId);
